@@ -1,10 +1,8 @@
 package com.Luv.juckbox;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class JukeBoxMusicPlayerApplicationTests {
+import static com.github.stefanbirkner.systemlambda.SystemLambda.*;
+class AppTest {
 
     @Test
     void contextLoads() {
