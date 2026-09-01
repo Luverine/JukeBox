@@ -1,5 +1,4 @@
 ## Assumptions
-
 1. On choosing a playlist, the first song in the playlist will start playing.
 2. On reaching the end, Next command will switch to the first song in the current playlist.
 3. On reaching the start, Back command will switch to the last song in the current playlist.
@@ -8,14 +7,12 @@
 6. In the Add_Song and Create_playlist command, You have to create an ID by yourself.
 
 ## Features
-
 1. A user can create a playlist from an available pool of songs.
 2. A user can add songs to the playlist.
 3. User can play the playlist and be able to switch songs (forward or backward)
 4. List all the songs in the pool.
 
 ## Bonus Features
-
 1. Users can search songs by name (Only prefix name matches should return).
 2. Get the list of top 10 most played songs in a non-increasing order.
 
@@ -58,7 +55,6 @@
 
 
 ## Expectations
-
 - Code should be Demo-able and functionally complete.
 - Code should fail gracefully with a proper error message for corner/invalid cases, use exceptions for handling these cases.
 - Code should be modular, try thinking in terms of Object-Oriented Design.
@@ -70,32 +66,22 @@
 - Work on the expected output first and then only work on bonus features.
 
 ## Input
-
 ```bash
+# ADD SONGS
 ADD_SONG Song_1 Artist_1 Album_1 Genre_1
-
 ADD_SONG Song_2 Artist_2 Album_2 Genre_2
-
 ADD_SONG Song_3 Artist_3 Album_3 Genre_3
-
 ADD_SONG Song_4 Artist_4 Album_4 Genre_1
-
 ADD_SONG Song_5 Artist_5 Album_5 Genre_2
-
 ADD_SONG Song_6 Artist_6 Album_6 Genre_3
-
 ADD_SONG Song_7 Artist_7 Album_7 Genre_1
-
 ADD_SONG Song_8 Artist_8 Album_8 Genre_2
-
 ADD_SONG Song_9 Artist_9 Album_9 Genre_3
-
 ADD_SONG Song_10 Artist_10 Album_10 Genre_1
 
 LIST_SONGS
 
 CREATE_PLAYLIST PLAYLIST_1 2 4 6 8
-
 CREATE_PLAYLIST PLAYLIST_2 1 3 5 7 9
 
 LOAD_PLAYLIST PLAYLIST_1
@@ -103,15 +89,11 @@ LOAD_PLAYLIST PLAYLIST_1
 PLAY_SONG
 
 NEXT_SONG
-
 NEXT_SONG
-
 NEXT_SONG
 
 PREVIOUS_SONG
-
 PREVIOUS_SONG
-
 PREVIOUS_SONG
 
 PLAY_SONG
