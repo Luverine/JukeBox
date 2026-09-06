@@ -23,17 +23,17 @@ public class PlaylistService {
         this.songRepository = songRepository;
     }
 
-    public void createPlaylist(String playlistName, List<Song> songIds) {
+    public void createPlaylist(String playlistName, List<Long> songIds) {
         if (!playlistRepository.existsById(playlistName)) {
             Playlist playlist = new Playlist(nextPlaylistId++, playlistName);
 
             // Fetch and add songs
-            for (Long songId = songIds) {
+            for (Long songId : songIds) {
                 songRepository.findById(songId).ifPresent(playlist::addSong);
             }
 
             playlistRepository.save(playlist);
-            System.out.println("Playlist [id= " + playlist.getId() + "]");
+            System.out.println("Playlist [id=" + playlist.getId() + "]");
         }
     }
 
@@ -43,9 +43,7 @@ public class PlaylistService {
             activePlaylist = playlistOpt.get();
             currentSongIndex = -1;
             System.out.println("Playlist " + playlistName + " is loaded!");
-        }  else {
-            System.out.println("INVALID COMMAND");
-        }
+        } else System.out.println("INVALID COMMAND");
     }
 
     public void playSong() {
@@ -55,21 +53,21 @@ public class PlaylistService {
         }
 
         if (isPlaying) {
-            // if already playing, toggle pause
+            // If already playing, toggle pause
             if (isPaused) {
-                System.out.println("Song [id= " + currentSong.getId() + "] is resumed!");
+                System.out.println("Song [id=" + currentSong.getId() + "] is resumed!");
                 isPaused = false;
             } else {
-                System.out.println("Song [id= " +currentSong.getId()+ "] is paused!");
+                System.out.println("Song [id=" + currentSong.getId() + "] is paused!");
                 isPaused = true;
             }
             return;
         }
 
-        // if not playing, start the first Song
+        // If not playing, start the first song
         currentSongIndex = (currentSongIndex == -1) ? 0 : currentSongIndex;
         currentSong = activePlaylist.getSongs().get(currentSongIndex);
-        System.out.println("Song [id= " + currentSong.getId() + "] is playing!");
+        System.out.println("Song [id=" + currentSong.getId() + "] is playing!");
         isPlaying = true;
         isPaused = false;
     }
@@ -82,7 +80,7 @@ public class PlaylistService {
 
         currentSongIndex = (currentSongIndex + 1) % activePlaylist.getSongs().size();
         currentSong = activePlaylist.getSongs().get(currentSongIndex);
-        System.out.println("Song [id= " + currentSong.getId() + "] is playing!");
+        System.out.println("Song [id=" + currentSong.getId() + "] is playing!");
     }
 
     public void previousSong() {
@@ -93,16 +91,16 @@ public class PlaylistService {
 
         currentSongIndex = (currentSongIndex - 1 + activePlaylist.getSongs().size()) % activePlaylist.getSongs().size();
         currentSong = activePlaylist.getSongs().get(currentSongIndex);
-        System.out.println("Song [id= " + currentSong.getId() + "] is playing!");
+        System.out.println("Song [id=" + currentSong.getId() + "] is playing!");
     }
 
     public void stopSong() {
-        if (activePlaylist == null || !isPlaying || activePlaylist.getSongs().isEmpty()) {
-            System.out.println("No playlist loaded or not playing.");
+        if (currentSong == null || !isPlaying) {
+            System.out.println("No song is currently playing.");
             return;
         }
 
-        System.out.println("Song [id= " + currentSong.getId() + "] is stopped!");
+        System.out.println("Song [id=" + currentSong.getId() + "] is stopped!");
         isPlaying = false;
         isPaused = false;
         currentSong = null;
@@ -111,7 +109,7 @@ public class PlaylistService {
     public void deletePlaylist(String playlistName) {
         if (playlistRepository.existsById(playlistName)) {
             playlistRepository.deleteById(playlistName);
-            System.out.println("Playlist "  + playlistName + " has been deleted!");
+            System.out.println("Playlist " + playlistName + " is deleted!");
         } else System.out.println("INVALID COMMAND");
     }
 
@@ -121,10 +119,23 @@ public class PlaylistService {
 
         if (playlistOpt.isPresent() && songOpt.isPresent()) {
             Playlist playlist = playlistOpt.get();
+            playlist.addSong(songOpt.get());
+            playlistRepository.save(playlist);
+
+            System.out.println("Playlist " + playlistName + " is revised with " + playlist.getSongs());
+        } else System.out.println("INVALID COMMAND");
+    }
+
+    public void deleteSongFromPlaylist(String playlistName, Long songId) {
+        Optional<Playlist> playlistOpt = playlistRepository.findById(playlistName);
+        Optional<Song> songOpt = songRepository.findById(songId);
+
+        if (playlistOpt.isPresent() && songOpt.isPresent()) {
+            Playlist playlist = playlistOpt.get();
             playlist.removeSong(songOpt.get());
             playlistRepository.save(playlist);
 
-            System.out.println("Playlist "  + playlistName + " is revised with " + playlist.getSongs());
-        }  else System.out.println("INVALID COMMAND");
+            System.out.println("Playlist " + playlistName + " is revised with " + playlist.getSongs());
+        } else System.out.println("INVALID COMMAND");
     }
 }
