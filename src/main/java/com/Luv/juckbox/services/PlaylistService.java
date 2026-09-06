@@ -111,7 +111,20 @@ public class PlaylistService {
     public void deletePlaylist(String playlistName) {
         if (playlistRepository.existsById(playlistName)) {
             playlistRepository.deleteById(playlistName);
-            
-        }
+            System.out.println("Playlist "  + playlistName + " has been deleted!");
+        } else System.out.println("INVALID COMMAND");
+    }
+
+    public void addSongToPlaylist(String playlistName, Long songId) {
+        Optional<Playlist> playlistOpt = playlistRepository.findById(playlistName);
+        Optional<Song> songOpt = songRepository.findById(songId);
+
+        if (playlistOpt.isPresent() && songOpt.isPresent()) {
+            Playlist playlist = playlistOpt.get();
+            playlist.removeSong(songOpt.get());
+            playlistRepository.save(playlist);
+
+            System.out.println("Playlist "  + playlistName + " is revised with " + playlist.getSongs());
+        }  else System.out.println("INVALID COMMAND");
     }
 }
