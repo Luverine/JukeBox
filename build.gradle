@@ -19,7 +19,7 @@ repositories {
 }
 
 application {
-    mainClass = 'your.package.Main'
+    mainClass = 'com.Luv.juckbox.App'
 }
 
 dependencies {

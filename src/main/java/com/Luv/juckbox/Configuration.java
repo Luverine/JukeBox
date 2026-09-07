@@ -50,6 +50,7 @@ public class Configuration {
         // JUKEBOX
         commandRegistry.registerCommand("PLAY_SONG", playSongCommand);
         commandRegistry.registerCommand("STOP_SONG", stopSongCommand);
+        commandRegistry.registerCommand("NEXT_SONG", nextSongCommand);
         commandRegistry.registerCommand("PREVIOUS_SONG", previousSongCommand);
         commandRegistry.registerCommand("DELETE_PLAYLIST", deletePlaylistCommand);
     }

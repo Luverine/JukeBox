@@ -31,8 +31,8 @@ class AppTest {
     @Test
     public void Application_Test() throws Exception{
         // Arrange
-        Path inputFile = Paths.get("src", "test", "resources", "input_test.txt");
-        List<String> arguments = new ArrayList<>(List.of("INPUT_FILE= "+inputFile.toString()));
+        Path inputFile = Paths.get("src", "test", "resources", "test_input_one.txt");
+        List<String> arguments = new ArrayList<>(List.of("INPUT_FILE="+inputFile.toString()));
         Path actualOutputFile = Paths.get("src", "test", "resources", "test_input_one_actual_output.txt");
         Path expectedOutputFile = Paths.get("src", "test", "resources", "test_input_one_expected_output.txt");
 

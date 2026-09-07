@@ -14,7 +14,10 @@ public class App {
         System.out.println("System is UP!");
 
         // Argument Length & Format
-        if (args.length != 0) throw new IllegalArgumentException("Expected exactly one argument: the input file path.");
+        if (args.length != 1) {
+            System.out.println("Received args (" + args.length + "): " + java.util.Arrays.toString(args));
+            throw new IllegalArgumentException("Expected exactly one argument: the input file path.");
+        }
 
         List<String> commandLineArgs = new LinkedList<>(Arrays.asList(args));
         run(commandLineArgs);
