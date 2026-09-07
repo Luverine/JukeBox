@@ -1,8 +1,9 @@
 package com.Luv.juckbox;
 
+import com.Luv.juckbox.commands.CommandRegistry;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.lang.module.Configuration;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,22 +20,22 @@ public class App {
         run(commandLineArgs);
     }
 
-    static void run(List<String> commandLineArgs) {
+    public static void run(List<String> commandLineArgs) {
         // configuration instance and command registry
         Configuration conf = Configuration.getInstance();
-        ComandRegistry comandRegistry = conf.getCommandRegistry();
+        CommandRegistry commandRegistry = conf.getCommandRegistry();
 
         // Extract the input file path
         String inputFile;
-        if(commandLineArgs.get(0).contains("=")) inputFile = commandLineArgs.get(0).split("=")[1]; // Extract filename if key-value format
-        else inputFile = commandLineArgs.get(0); // Direct filename case
+        if(commandLineArgs.get(0).contains("=")) inputFile = commandLineArgs.get(0).split("=")[1];
+        else inputFile = commandLineArgs.get(0);
 
         // Read commands from the file and execute them
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 // Ensure the line is not empty or whitespace before invoking the command
-                if (!line.trim().isEmpty()) comandRegistry.invokeCommand(line);
+                if (!line.trim().isEmpty()) commandRegistry.invokeCommand(line);
             }
         } catch (Exception e) {
             // Gracefully handle exceptions and log an error message

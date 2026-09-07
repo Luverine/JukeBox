@@ -37,7 +37,7 @@ class AppTest {
         Path expectedOutputFile = Paths.get("src", "test", "resources", "test_input_one_expected_output.txt");
 
         // Act
-        String actualOutput = tapSystemOut(()-> app.run(arguments));
+        String actualOutput = tapSystemOut(()-> App.run(arguments));
         Files.writeString(actualOutputFile, actualOutput, StandardCharsets.UTF_8);
 
         // Assert
